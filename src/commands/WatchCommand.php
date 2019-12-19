@@ -64,8 +64,8 @@ class WatchCommand extends Command {
                     if (!$batchItemId) {
                         continue;
                     }
-                    $this->removeDir($dir->getPathName());
                     $this->sender->send(new LogMessage($batchItemId, 1, "QSS_SUCCESS", "QSS_SUCCESS"));
+                    $this->removeDir($dir->getPathName());
 
                 } elseif (strpos($dir->getRelativePathname(), '.e') !== false) {
                     /*
@@ -123,13 +123,12 @@ class WatchCommand extends Command {
         $files = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
         foreach($files as $file) {
             if ($file->isDir()){
-//                rmdir($file->getRealPath());
+                rmdir($file->getRealPath());
             } else {
-//                print_r($file);
-//                unlink($file->getRealPath());
+                unlink($file->getRealPath());
             }
         }
-//        rmdir($dir);
+        rmdir($dir);
     }
 
     /**
