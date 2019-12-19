@@ -1,0 +1,13 @@
+{
+  "require" : {
+    "symfony/console": "~2.0",
+    "symfony/dotenv": "^5.0",
+    "symfony/finder": "^5.0",
+    "ext-sysvmsg": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "AYashenkov\\": "src"
+    }
+  }
+}
