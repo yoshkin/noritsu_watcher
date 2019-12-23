@@ -29,6 +29,7 @@ class WatchCommand extends Command {
     public function __construct()
     {
         $this->logger = new FileLogger();
+        //init mutex factory (using FlockStore (Filemutex))
         $this->factory = new LockFactory(new FlockStore(sys_get_temp_dir()));
 
         parent::__construct();
