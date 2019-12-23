@@ -10,12 +10,17 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Lock\LockFactory;
+use Symfony\Component\Lock\Store\FlockStore;
 
 class WatchCommand extends Command {
 
-    /* @var $logger FileLogger */
-    protected $logger;
-    protected $sender;
+    /** @var $logger FileLogger */
+    private $logger;
+    /** @var SysCallSender */
+    private $sender;
+    /** @var LockFactory  */
+    private $factory;
 
     /**
      * Command constructor.
@@ -24,6 +29,7 @@ class WatchCommand extends Command {
     {
         $this->logger = new FileLogger();
         $this->sender = new SysCallSender($this->logger);
+        $this->factory = new LockFactory(new FlockStore(sys_get_temp_dir()));
 
         parent::__construct();
     }
@@ -45,6 +51,11 @@ class WatchCommand extends Command {
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $lock = $this->factory->createLock('php-noritsu-watch');
+
+        if (!$lock->acquire()) {
+            $this->logger->warning('Mutex! Exit.'); die('Mutex! Exit.'.PHP_EOL);
+        }
         $baseDir = $_ENV['WATCH_DIR'].DIRECTORY_SEPARATOR;
         $finder = new Finder();
         /*
@@ -112,6 +123,7 @@ class WatchCommand extends Command {
                 }
             }
         }
+        $lock->release();
     }
 
     /**
