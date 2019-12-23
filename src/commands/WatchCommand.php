@@ -16,11 +16,11 @@ use Symfony\Component\Lock\Store\FlockStore;
 
 class WatchCommand extends Command {
 
-    /** @var $logger FileLogger $logger */
+    /** @var $logger FileLogger */
     private $logger;
-    /** @var SysCallSender $sender */
+    /** @var $sender SysCallSender */
     private $sender;
-    /** @var LockFactory $factory */
+    /** @var $factory LockFactory */
     private $factory;
 
     /**
