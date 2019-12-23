@@ -7,7 +7,9 @@ use Psr\Log\LoggerInterface;
 
 class FileLogger implements LoggerInterface
 {
+    /** @var mixed|string|null */
     private $dir;
+    /** @var mixed|string */
     private $logFile;
 
     public function __construct($logDir = null)

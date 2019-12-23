@@ -8,8 +8,11 @@ use Psr\Log\LoggerInterface;
 
 class SysCallSender implements SenderInterfase
 {
+    /** @var ftok key */
     private $key;
+    /** @var message queue */
     private $msqid;
+    /** @var LoggerInterface $logger */
     private $logger;
 
     /**
