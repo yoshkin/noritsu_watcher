@@ -4,6 +4,7 @@ namespace AYashenkov\commands;
 
 use AYashenkov\loggers\FileLogger;
 use AYashenkov\LogMessage;
+use AYashenkov\services\SenderInterfase;
 use AYashenkov\services\SysCallSender;
 use AYashenkov\Status;
 use Symfony\Component\Console\Command\Command;
@@ -28,7 +29,6 @@ class WatchCommand extends Command {
     public function __construct()
     {
         $this->logger = new FileLogger();
-        $this->sender = new SysCallSender($this->logger);
         $this->factory = new LockFactory(new FlockStore(sys_get_temp_dir()));
 
         parent::__construct();
@@ -45,12 +45,25 @@ class WatchCommand extends Command {
     }
 
     /**
+     * @param SenderInterfase $senderInterfase
+     * @return WatchCommand
+     */
+    private function setSender(SenderInterfase $senderInterfase): WatchCommand
+    {
+        $this->sender = $senderInterfase;
+        return $this;
+    }
+
+
+    /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|void|null
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->setSender(new SysCallSender($this->logger));
+
         $lock = $this->factory->createLock('php-noritsu-watch');
 
         if (!$lock->acquire()) {
