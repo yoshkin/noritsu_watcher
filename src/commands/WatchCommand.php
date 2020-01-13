@@ -85,7 +85,7 @@ class WatchCommand extends Command {
                     /*
                      * Прочитаем файл с информацией о задании для оборудования
                      */
-                    $batchItemId = self::getBatchItemId($output, $dir);
+                    $batchItemId = $this->getBatchItemId($output, $dir);
                     if (!$batchItemId) {
                         continue;
                     }
