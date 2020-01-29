@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace AYashenkov\commands;
 
@@ -15,7 +15,7 @@ class InfoCommand extends Command {
             ->setHelp('This command allows you to see information about this application.');
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): string
     {
         $output->writeln([
             '=======================================================',

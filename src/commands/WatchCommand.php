@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace AYashenkov\commands;
 
@@ -61,7 +61,7 @@ class WatchCommand extends Command {
      * @param OutputInterface $output
      * @return int|void|null
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): void
     {
         $this->setSender(new SysCallSender($this->logger));
 

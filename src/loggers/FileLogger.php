@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace AYashenkov\loggers;
@@ -25,7 +25,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = array()): void
     {
         $this->logMessage('[NOTICE] '.$message);
     }
@@ -34,7 +34,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = array()): void
     {
         $this->logMessage('[INFO] '.$message);
     }
@@ -43,7 +43,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = array()): void
     {
         $this->logMessage('[DEBUG] '.$message);
     }
@@ -52,7 +52,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = array()): void
     {
         $this->logMessage('[EMERG] '.$message);
     }
@@ -61,7 +61,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = array()): void
     {
         $this->logMessage('[CRIT] '.$message);
     }
@@ -70,7 +70,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = array()): void
     {
         $this->logMessage('[ERR] '.$message);
     }
@@ -79,7 +79,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = array()): void
     {
         $this->logMessage('[WARN] '.$message);
     }
@@ -88,7 +88,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = array()): void
     {
         $this->logMessage('[ALERT] '.$message);
     }
@@ -98,7 +98,7 @@ class FileLogger implements LoggerInterface
      * @param string $message
      * @param array $context
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         $this->logMessage($message);
     }
@@ -106,7 +106,7 @@ class FileLogger implements LoggerInterface
     /**
      * @param $message
      */
-    private function logMessage($message)
+    private function logMessage($message): void
     {
         $time = date('Y-m-d H:i:s');
         file_put_contents($this->dir.$this->logFile, "[{$time}] {$message}\n", FILE_APPEND | LOCK_EX);

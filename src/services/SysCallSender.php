@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace AYashenkov\services;
@@ -28,7 +28,7 @@ class SysCallSender implements SenderInterfase
     /**
      * init SysCallSender
      */
-    public function init()
+    public function init(): void
     {
         /* Generate key, param for ftok must be same as in C++ component */
         if(($this->key = ftok($_ENV['FTOK_PATH'], "s")) == -1) {
@@ -43,8 +43,6 @@ class SysCallSender implements SenderInterfase
         if(($this->msqid = msg_get_queue($this->key)) === FALSE) {
             $this->logger->critical("Could not connect to Message queue"); die();
         }
-
-//        return $this;
     }
 
     /**
